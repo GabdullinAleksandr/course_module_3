@@ -10,6 +10,9 @@ packages = [{include = "course_module_3"}]
 python = "^3.10"
 pandas = "^1.5.2"
 
+[tool.poetry.scripts]
+get-sorted = 'main:get_sorted'
+get-banch = 'main:get_banch'
 
 [build-system]
 requires = ["poetry-core"]

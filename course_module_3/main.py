@@ -1,7 +1,17 @@
-from utlis import hash_func
+from utlis import hash_func, get_by_date
 
 
-def main():
+def get_banch():
+    user_input_1 = input('Дата в формате yyyy-mm-dd [all]: ')
+    user_input_2 = input('Тикер [all]: ')
+    user_input_3 = input('Файл [result.csv]: ')
+    user_input_1 = None if user_input_1 == '' else str(user_input_1)
+    user_input_2 = None if user_input_2 == '' else str(user_input_2)
+    user_input_3 = 'result.csv' if user_input_3 == '' else str(user_input_3)
+    get_by_date(user_input_1, user_input_2, user_input_3)
+
+
+def get_sorted():
     print('Сортировать по цене')
     user_input_1 = input('открытия (1)\n'
                          'закрытия (2)\n'
@@ -39,4 +49,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    get_sorted()
+    get_banch()

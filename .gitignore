@@ -2,5 +2,5 @@ venv
 .idea
 .coverage
 .pytest_cache
-code_/__pycache__
+course_module_3/__pycache__
 tests/__pycache__

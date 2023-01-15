@@ -59,57 +59,57 @@ def select_sorted(sort_columns, order, limit, filename):
     df.iloc[list_in].to_csv(filename, index=False)
 
 
-# def search(list_date, date, list_name=None, name=None):
-#     low = list_date[0][0]
-#     high = list_date[-1][0]
-#     while low <= high:
-#         mid = (low + high) // 2
-#         item = list_date[mid][1]
-#         if item == date:
-#             list_mid = []
-#             old_mid = mid
-#             while list_date[mid][1] == date:
-#                 if list_name is None or list_name[mid][1] == name:
-#                     list_mid.append(mid)
-#                 mid -= 1
-#             mid = old_mid
-#             while list_date[mid][1] == date:
-#                 if list_name is None or list_name[mid][1] == name:
-#                     list_mid.append(mid)
-#                 if mid >= high:
-#                     break
-#                 mid += 1
-#             return list_mid
-#         if item > date:
-#             high = mid - 1
-#         else:
-#             low = mid + 1
-#     return None
+def search(list_date, date, list_name=None, name=None):
+    low = list_date[0][0]
+    high = list_date[-1][0]
+    while low <= high:
+        mid = (low + high) // 2
+        item = list_date[mid][1]
+        if item == date:
+            list_mid = []
+            old_mid = mid
+            while list_date[mid][1] == date:
+                if list_name is None or list_name[mid][1] == name:
+                    list_mid.append(mid)
+                mid -= 1
+            mid = old_mid
+            while list_date[mid][1] == date:
+                if list_name is None or list_name[mid][1] == name:
+                    list_mid.append(mid)
+                if mid >= high:
+                    break
+                mid += 1
+            return list_mid
+        if item > date:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return None
 
 
-# def get_by_date(date, name, filename):
-#     if date is None and name is None:
-#         print('Нет аргументов')
-#     df = pd.read_csv(file, index_col='date', parse_dates=True)
-#     df = df.sort_index()
-#     df = df.reset_index()
-#     if date is not None and name is not None:
-#         list_date = list(enumerate(df['date']))
-#         list_name = list(enumerate(df['Name']))
-#         date = pd.to_datetime(date)
-#         result = search(list_date, date, list_name, name)
-#     if date is None and name is not None:
-#         list_name = list(enumerate(df['Name']))
-#         result = [i[0] for i in list_name if i[1] == name]
-#     if date is not None and name is None:
-#         list_date = list(enumerate(df['date']))
-#         date = pd.to_datetime(date)
-#         result = search(list_date, date)
-#     with open(filename, 'w') as f:
-#         pass
-#     if result == []:
-#         print('нет совпадений')
-#     elif result is not None:
-#         df.iloc[result].to_csv(filename, index=False)
-#     else:
-#         print('нет совпадений')
+def get_by_date(date, name, filename):
+    if date is None and name is None:
+        print('Нет аргументов')
+    df = pd.read_csv('all_stocks_5yr.csv', index_col='date', parse_dates=True)
+    df = df.sort_index()
+    df = df.reset_index()
+    if date is not None and name is not None:
+        list_date = list(enumerate(df['date']))
+        list_name = list(enumerate(df['Name']))
+        date = pd.to_datetime(date)
+        result = search(list_date, date, list_name, name)
+    if date is None and name is not None:
+        list_name = list(enumerate(df['Name']))
+        result = [i[0] for i in list_name if i[1] == name]
+    if date is not None and name is None:
+        list_date = list(enumerate(df['date']))
+        date = pd.to_datetime(date)
+        result = search(list_date, date)
+    with open(filename, 'w') as f:
+        pass
+    if not result:
+        print('нет совпадений')
+    elif result is not None:
+        df.iloc[result].to_csv(filename, index=False)
+    else:
+        print('нет совпадений')
